@@ -1,5 +1,5 @@
 var startButton = document.querySelector("#startButton");
-var gameOver = document.querySelectorAll("#gameOver");
+var gameOver = document.querySelector("#gameOver");
 var questionBox = document.querySelector("#question");
 var answer0 = document.querySelector("#answer0");
 var answer1 = document.querySelector("#answer1");
@@ -11,14 +11,54 @@ var timer = document.querySelector("#timer");
 var timeContainer = document.querySelector(".timer");
 var score = document.querySelector("#score");
 var scoreContainer = document.querySelector(".score");
+var counter = 0;
+var timeRemaining = 10;
+
+var questions = [
+    {
+        title: "Commonly used data types DO NOT include:",
+        choices: ["strings", "booleans", "alerts", "numbers"],
+        answer: "alerts"
+    },
+    {
+        title: "The condition in an if / else statement is enclosed within ____.",
+        choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
+        answer: "parentheses"
+    },
+    {
+        title: "Arrays in JavaScript can be used to store ____.",
+        choices: ["numbers and strings", "other arrays", "booleans", "all of the above"],
+        answer: "all of the above"
+    },
+    {
+        title: "String values must be enclosed within ____ when being assigned to variables.",
+        choices: ["commas", "curly brackets", "quotes", "parentheses"],
+        answer: "quotes"
+    },
+    {
+        title:
+            "A very useful tool used during development and debugging for printing content to the debugger is:",
+        choices: ["JavaScript", "terminal / bash", "for loops", "console.log"],
+        answer: "console.log"
+    }
+];
+
 
 score.textContent = 0;
 console.log(score.textContent);
 
 function startTimer() {
-    timer.textContent = 10;
-    setInterval(function () {
-        timer.textContent--;
+    timer.textContent = timeRemaining;
+    var timerID = setInterval(function () {
+        timeRemaining--;
+        timer.textContent = timeRemaining;
+        if (timeRemaining <= 0 ) {
+           // console.log("stop");
+           gameOver.classList.remove("hidden");
+            clearInterval(timerID);
+            timeRemaining = 0;
+            timer.textContent = timeRemaining;
+        }
     }, 1000); // how do I get the timer to stop at 0?
 };
 
@@ -30,36 +70,38 @@ startButton.addEventListener("click", function () {
     currentQuestion();
 });
 
-if (timer.textContent === 0) {
-    gameOver.classList.remove("hidden") // can't get this to work
-}
+// if (timeRemaining === 0) {
+//     gameOver.classList.remove("hidden") // can't get this to work
+// }
 
 for (let i = 0; i < choice.length; i++) {
     choice[i].addEventListener("click", function correct() {
-        if (choice[i].textContent === realAnswer.textContent) {
-            timer.textContent++;
-            score.textContent++;
-
+        if (choice[i].getAttribute("data-value") === questions[counter].answer) {
+            counter++
+            timeRemaining += 5;
+            score.textContent = counter;
+            currentQuestion()
         } else {
-            timer.textContent--;
+            timeRemaining -= 5;
         }
     })
 }
 
 //going nuts over this
 function currentQuestion() {
-    if (i = score.textContent) {
-        questionBox.textContent = questions[i].title;
-        answer0.textContent = questions[i].choices[0];
-        answer1.textContent = questions[i].choices[1];
-        answer2.textContent = questions[i].choices[2];
-        answer3.textContent = questions[i].choices[3];
-        realAnswer.textContent = questions[i].answer;
-
-        if (correct()){
-            i++
-        }
-    }
+    
+        questionBox.textContent = questions[counter].title;
+        answer0.textContent = questions[counter].choices[0];
+        answer0.setAttribute("data-value", questions[counter].choices[0]);
+        answer1.textContent = questions[counter].choices[1];
+        answer1.setAttribute("data-value", questions[counter].choices[1]);
+        answer2.textContent = questions[counter].choices[2];
+        answer2.setAttribute("data-value", questions[counter].choices[2]);
+        answer3.textContent = questions[counter].choices[3];
+        answer3.setAttribute("data-value", questions[counter].choices[3]);
+        realAnswer.textContent = questions[counter].answer;
+        
+    
 };
 
 
@@ -108,31 +150,3 @@ function currentQuestion() {
 //     document.querySelector("#realAnswer").textContent = questions[4].answer;
 // }
 
-var questions = [
-    {
-        title: "Commonly used data types DO NOT include:",
-        choices: ["strings", "booleans", "alerts", "numbers"],
-        answer: "alerts"
-    },
-    {
-        title: "The condition in an if / else statement is enclosed within ____.",
-        choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
-        answer: "parentheses"
-    },
-    {
-        title: "Arrays in JavaScript can be used to store ____.",
-        choices: ["numbers and strings", "other arrays", "booleans", "all of the above"],
-        answer: "all of the above"
-    },
-    {
-        title: "String values must be enclosed within ____ when being assigned to variables.",
-        choices: ["commas", "curly brackets", "quotes", "parentheses"],
-        answer: "quotes"
-    },
-    {
-        title:
-            "A very useful tool used during development and debugging for printing content to the debugger is:",
-        choices: ["JavaScript", "terminal / bash", "for loops", "console.log"],
-        answer: "console.log"
-    }
-];

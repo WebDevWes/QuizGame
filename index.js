@@ -59,7 +59,7 @@ function startTimer() {
             timeRemaining = 0;
             timer.textContent = timeRemaining;
         }
-    }, 1000); // how do I get the timer to stop at 0?
+    }, 1000);
 };
 
 startButton.addEventListener("click", function () {
@@ -70,6 +70,7 @@ startButton.addEventListener("click", function () {
     currentQuestion();
 });
 
+// previous failed attempt //
 // if (timeRemaining === 0) {
 //     gameOver.classList.remove("hidden") // can't get this to work
 // }
@@ -87,7 +88,6 @@ for (let i = 0; i < choice.length; i++) {
     })
 }
 
-//going nuts over this
 function currentQuestion() {
     
         questionBox.textContent = questions[counter].title;
@@ -105,9 +105,7 @@ function currentQuestion() {
 };
 
 
-// function nextQuestion(){
-
-// }
+// looking to put this into a function because this is repetitive
 
 // function question0() {
 //     document.querySelector("#question").textContent = questions[0].title;

@@ -77,11 +77,19 @@ startButton.addEventListener("click", function () {
 
 for (let i = 0; i < choice.length; i++) {
     choice[i].addEventListener("click", function correct() {
+        choice[i].classList.add("click")
+        setTimeout(function (){
+            choice[i].classList.remove("click")
+        }, 100)
+
         if (choice[i].getAttribute("data-value") === questions[counter].answer) {
             counter++
-            timeRemaining += 5;
+            timeRemaining += 2;
             score.textContent = counter;
             currentQuestion()
+                if (score.textContent == 5){
+                    gameOver.classList.remove("hidden");
+                }
         } else {
             timeRemaining -= 5;
         }

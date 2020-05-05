@@ -52,9 +52,9 @@ function startTimer() {
     var timerID = setInterval(function () {
         timeRemaining--;
         timer.textContent = timeRemaining;
-        if (timeRemaining <= 0 ) {
-           // console.log("stop");
-           gameOver.classList.remove("hidden");
+        if (timeRemaining <= 0) {
+            // console.log("stop");
+            gameOver.classList.remove("hidden");
             clearInterval(timerID);
             timeRemaining = 0;
             timer.textContent = timeRemaining;
@@ -78,18 +78,14 @@ startButton.addEventListener("click", function () {
 for (let i = 0; i < choice.length; i++) {
     choice[i].addEventListener("click", function correct() {
         choice[i].classList.add("click")
-        setTimeout(function (){
+        setTimeout(function () {
             choice[i].classList.remove("click")
         }, 100)
-
         if (choice[i].getAttribute("data-value") === questions[counter].answer) {
             counter++
             timeRemaining += 2;
             score.textContent = counter;
             currentQuestion()
-                if (score.textContent == 5){
-                    gameOver.classList.remove("hidden");
-                }
         } else {
             timeRemaining -= 5;
         }
@@ -97,19 +93,19 @@ for (let i = 0; i < choice.length; i++) {
 }
 
 function currentQuestion() {
-    
-        questionBox.textContent = questions[counter].title;
-        answer0.textContent = questions[counter].choices[0];
-        answer0.setAttribute("data-value", questions[counter].choices[0]);
-        answer1.textContent = questions[counter].choices[1];
-        answer1.setAttribute("data-value", questions[counter].choices[1]);
-        answer2.textContent = questions[counter].choices[2];
-        answer2.setAttribute("data-value", questions[counter].choices[2]);
-        answer3.textContent = questions[counter].choices[3];
-        answer3.setAttribute("data-value", questions[counter].choices[3]);
-        realAnswer.textContent = questions[counter].answer;
-        
-    
+
+    questionBox.textContent = questions[counter].title;
+    answer0.textContent = questions[counter].choices[0];
+    answer0.setAttribute("data-value", questions[counter].choices[0]);
+    answer1.textContent = questions[counter].choices[1];
+    answer1.setAttribute("data-value", questions[counter].choices[1]);
+    answer2.textContent = questions[counter].choices[2];
+    answer2.setAttribute("data-value", questions[counter].choices[2]);
+    answer3.textContent = questions[counter].choices[3];
+    answer3.setAttribute("data-value", questions[counter].choices[3]);
+    realAnswer.textContent = questions[counter].answer;
+
+
 };
 
 

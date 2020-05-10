@@ -1,3 +1,4 @@
+//Creating variable for related item from HTML
 var startButton = document.querySelector("#startButton");
 var gameOver = document.querySelector("#gameOver");
 var questionBox = document.querySelector("#question");
@@ -14,6 +15,7 @@ var scoreContainer = document.querySelector(".score");
 var counter = 0;
 var timeRemaining = 10;
 
+//Provided Questions in object format
 var questions = [
     {
         title: "Commonly used data types DO NOT include:",
@@ -43,7 +45,7 @@ var questions = [
     }
 ];
 
-
+//Score + game over screen removed upon timer hitting 0
 score.textContent = 0;
 console.log(score.textContent);
 
@@ -53,7 +55,6 @@ function startTimer() {
         timeRemaining--;
         timer.textContent = timeRemaining;
         if (timeRemaining <= 0) {
-            // console.log("stop");
             gameOver.classList.remove("hidden");
             clearInterval(timerID);
             timeRemaining = 0;
@@ -70,11 +71,12 @@ startButton.addEventListener("click", function () {
     currentQuestion();
 });
 
-// previous failed attempt //
-// if (timeRemaining === 0) {
-//     gameOver.classList.remove("hidden") // can't get this to work
-// }
+//previous failed attempt
+if (parseInt(score.textContent) === 5) {
+    gameOver.classList.remove("hidden") // can't get this to work
+}
 
+//Selecting question
 for (let i = 0; i < choice.length; i++) {
     choice[i].addEventListener("click", function correct() {
         choice[i].classList.add("click")
@@ -91,7 +93,7 @@ for (let i = 0; i < choice.length; i++) {
         }
     })
 }
-
+//Display Questions
 function currentQuestion() {
 
     questionBox.textContent = questions[counter].title;

@@ -72,9 +72,9 @@ startButton.addEventListener("click", function () {
 });
 
 //previous failed attempt
-if (parseInt(score.textContent) === 5) {
-    gameOver.classList.remove("hidden") // can't get this to work
-}
+// if (parseInt(score.innerHTML) === 5) {
+//     gameOver.classList.remove("hidden") // can't get this to work
+// }
 
 //Selecting question
 for (let i = 0; i < choice.length; i++) {
@@ -106,6 +106,10 @@ function currentQuestion() {
     answer3.textContent = questions[counter].choices[3];
     answer3.setAttribute("data-value", questions[counter].choices[3]);
     realAnswer.textContent = questions[counter].answer;
+   
+    // if(parseInt(counter) > 5) {
+    //     gameOver.classList.remove("hidden");
+    // }
 
 
 };

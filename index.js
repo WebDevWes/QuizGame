@@ -48,10 +48,11 @@ var questions = [
 //Score + game over screen removed upon timer hitting 0
 score.textContent = 0;
 console.log(score.textContent);
+var timerID
 
 function startTimer() {
     timer.textContent = timeRemaining;
-    var timerID = setInterval(function () {
+    timerID = setInterval(function () {
         timeRemaining--;
         timer.textContent = timeRemaining;
         if (timeRemaining <= 0) {
@@ -74,9 +75,10 @@ startButton.addEventListener("click", function () {
 //previous failed attempt
 // if (parseInt(score.innerHTML) === 5) {
 //     gameOver.classList.remove("hidden") // can't get this to work
+
 // }
 
-//Selecting question
+// //Selecting question
 for (let i = 0; i < choice.length; i++) {
     choice[i].addEventListener("click", function correct() {
         choice[i].classList.add("click")
@@ -87,7 +89,15 @@ for (let i = 0; i < choice.length; i++) {
             counter++
             timeRemaining += 2;
             score.textContent = counter;
+            if (counter >= questions.length)
+          {
+            gameOver.classList.remove("hidden");
+            clearInterval(timerID);
+            timer.textContent = timeRemaining;
+          }
+          else{
             currentQuestion()
+          }
         } else {
             timeRemaining -= 5;
         }
@@ -158,3 +168,21 @@ function currentQuestion() {
 //     document.querySelector("#realAnswer").textContent = questions[4].answer;
 // }
 
+
+
+
+
+
+
+// execute up to down
+
+
+
+
+
+/// variables === global scope or the scope insdie of funcition
+
+
+// function is never executed if you don't call it 
+
+// any other code is excuted onece in the moment javascript read it 

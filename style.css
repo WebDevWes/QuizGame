@@ -132,3 +132,13 @@
     opacity: 50%;
     transform: scale(1.1);
 }
+
+#endGameScore {
+    position: absolute;
+    text-align: center;
+    margin-left: 220px;
+    margin-top: 130px;
+    font-size: 50px;
+    font-weight: 800;
+    color: brown;
+}

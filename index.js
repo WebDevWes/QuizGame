@@ -68,13 +68,16 @@ scoreButton.addEventListener("click", function () {
 
 
 //Create list item for scores and append to unordered list
-var localScores = JSON.parse(localStorage.getItem(localStorage))
-var scoreInitial = localStorage.Initial
-var scoreTime = localStorage.timeRemaining
-var node = document.createElement("li");
-var textNode = document.createTextNode("Initial-"+scoreInitial+" Time- "+scoreTime);
-node.appendChild(textNode);
-highScores.appendChild(node);
+var localScores = JSON.parse(localStorage.getItem("scores")) || [];
+//var scoreInitial = localStorage.Initial
+var scoreTime = localStorage.scores
+for (let i = 0; i < localScores.length; i++) {
+    var node = document.createElement("li");
+    var textNode = document.createTextNode(localScores[i]);
+    node.appendChild(textNode);
+    highScores.appendChild(node);
+}
+
 
 
 //Funtion to start timer
@@ -137,8 +140,10 @@ for (let i = 0; i < choice.length; i++) {
 
 //When Submit button is clicked - save scores
 submit.addEventListener("click", function () {
-    localStorage.setItem("Initial", JSON.stringify(initialValue.value));
-    localStorage.setItem("timeRemaining", JSON.stringify(timer.textContent));
+    //localStorage.setItem("Initial", JSON.stringify(initialValue.value));
+    var saveScore = initialValue.value + "- Time Remaining = " + timer.textContent
+    localScores.push(saveScore);
+    localStorage.setItem("scores", JSON.stringify(localScores));
     // console.log(timer.textContent);
     // console.log(initialValue.value);
 })

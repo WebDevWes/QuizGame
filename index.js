@@ -1,6 +1,13 @@
 //Creating variable for related item from HTML
 var startButton = document.querySelector("#startButton");
 var gameOver = document.querySelector("#gameOver");
+var endGameScore = document.querySelector("#endGameScore");
+var initialInput = document.querySelector("#initials");
+var initialValue = document.querySelector("#input");
+var submit = document.querySelector("#submitScores");
+var scoreHistory = document.querySelector("#scoreHistory");
+var highScores = document.querySelector("#highScores");
+var scoreButton = document.querySelector("#scoreButton")
 var questionBox = document.querySelector("#question");
 var answer0 = document.querySelector("#answer0");
 var answer1 = document.querySelector("#answer1");
@@ -47,9 +54,30 @@ var questions = [
 
 //Score + game over screen removed upon timer hitting 0
 score.textContent = 0;
-console.log(score.textContent);
+//console.log(score.textContent);
 var timerID
 
+//Score button brings up score container
+scoreButton.addEventListener("click", function () {
+    if (scoreHistory.classList == "hidden") {
+        scoreHistory.classList.remove("hidden");
+    } else {
+        scoreHistory.classList.add("hidden");
+    }
+})
+
+
+//Create list item for scores and append to unordered list
+var localScores = JSON.parse(localStorage.getItem(localStorage))
+var scoreInitial = localStorage.Initial
+var scoreTime = localStorage.timeRemaining
+var node = document.createElement("li");
+var textNode = document.createTextNode("Initial-"+scoreInitial+" Time- "+scoreTime);
+node.appendChild(textNode);
+highScores.appendChild(node);
+
+
+//Funtion to start timer
 function startTimer() {
     timer.textContent = timeRemaining;
     timerID = setInterval(function () {
@@ -89,20 +117,33 @@ for (let i = 0; i < choice.length; i++) {
             counter++
             timeRemaining += 2;
             score.textContent = counter;
-            if (counter >= questions.length)
-          {
-            gameOver.classList.remove("hidden");
-            clearInterval(timerID);
-            timer.textContent = timeRemaining;
-          }
-          else{
-            currentQuestion()
-          }
+            if (counter >= questions.length) {
+                endGameScore.classList.remove("hidden");
+                initialInput.classList.remove("hidden");
+                clearInterval(timerID);
+                timer.textContent = timeRemaining;
+                endGameScore.textContent = "Your Score = " + score.textContent + "\n" + "Time Remaining is " + timer.textContent;
+                // localStorage.setItem("score", JSON.stringify(score.textContent));
+                // localStorage.setItem("timeRemaining", JSON.stringify(timer.textContent));
+            }
+            else {
+                currentQuestion()
+            }
         } else {
             timeRemaining -= 5;
         }
     })
 }
+
+//When Submit button is clicked - save scores
+submit.addEventListener("click", function () {
+    localStorage.setItem("Initial", JSON.stringify(initialValue.value));
+    localStorage.setItem("timeRemaining", JSON.stringify(timer.textContent));
+    // console.log(timer.textContent);
+    // console.log(initialValue.value);
+})
+
+
 //Display Questions
 function currentQuestion() {
 
@@ -116,7 +157,7 @@ function currentQuestion() {
     answer3.textContent = questions[counter].choices[3];
     answer3.setAttribute("data-value", questions[counter].choices[3]);
     realAnswer.textContent = questions[counter].answer;
-   
+
     // if(parseInt(counter) > 5) {
     //     gameOver.classList.remove("hidden");
     // }

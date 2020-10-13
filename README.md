@@ -1,4 +1,8 @@
-### Github pages link : https://wesaboo.github.io/QuizGame/
+### Github pages link : https://webdevwes.github.io/QuizGame/
+
+### Github Username: WebDevWes
+
+Github Email Address: webdevwes89@gmail.com
 
 # QuizGame
 
